@@ -3,13 +3,16 @@ import tkinter as tk
 from tkinter import Label, ttk
 from tkinter import Menu
 from tkinter import filedialog
+from tkinter import messagebox
 from typing import Text
+import csv
+from csv import *
 
 win = tk.Tk()
 win.title("Python GUI Test With Tkinter")
 win.geometry("500x500")
 win.config(background="white")
-
+main_lst=[]
 # Exit Action
 def _quit():
     win.quit()
@@ -26,6 +29,23 @@ def _file():
                                                       "*.*")))
     file_explorer.config(text="File Open:"+filename)
     
+    
+def add():
+    lst=[initials.get(),date.get(),cname.get(),uname.get(),sn.get(),stock.get()]
+    main_lst.append(lst)
+    messagebox.showinfo("Information","Saved successfully")
+
+def save():
+    with open("inventory.csv", "w") as file:
+        Writer = writer(file)
+        Writer = writerow(["Initials","Date","Computer Name","Name", "S/N", "Stock"])
+        Writer.writerows(main_lst)
+        messagebox.showinfo("Information","Saved successfully")
+        
+def clear():
+    initials.delete()
+    date.delete()
+    cname.delete
 # File explorer Window
 file_explorer = Label(win,
                       text="File Explorer",
