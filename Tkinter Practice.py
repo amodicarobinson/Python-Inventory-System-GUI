@@ -1,5 +1,4 @@
 # Create Menu bar in python GUI
-from curses import window
 import tkinter as tk
 from tkinter import Label, ttk
 from tkinter import Menu
@@ -28,7 +27,7 @@ def _file():
     file_explorer.config(text="File Open:"+filename)
     
 # File explorer Window
-file_explorer = Label(window,
+file_explorer = Label(win,
                       text="File Explorer",
                       width=100, height=10,
                       fg="blue")
