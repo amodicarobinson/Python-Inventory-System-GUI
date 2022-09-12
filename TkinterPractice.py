@@ -92,9 +92,9 @@ uname.grid(row=3,column=2)
 sn.grid(row=4,column=2)
 stock.grid(row=5,column=2)
 
-save.grid(row=7,column=2, columnspan=2)
-add.grid(row=6,column=2, columnspan=2)
-clear.grid(row=8,column=2, columnspan=2)
+save.grid(row=7,column=2, columnspan=2, pady=20)
+add.grid(row=6,column=2, columnspan=2, pady=20)
+clear.grid(row=8,column=2, columnspan=2, pady=20)
 
 save.config(bg="black", fg="white")
 add.config(bg="black", fg="white")
