@@ -11,7 +11,7 @@ from csv import *
 win = tk.Tk()
 win.title("Python Inventory GUI")
 win.geometry("500x500")
-win.config(background="white")
+win.config(background="black")
 main_lst=[]
 # Exit Action
 def _quit():
