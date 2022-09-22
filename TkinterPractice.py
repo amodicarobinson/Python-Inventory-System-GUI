@@ -1,7 +1,7 @@
 # Create Menu bar in python GUI
 import csv as csv
 import tkinter as tk
-from tkinter import END, Button, Entry, Label, ttk
+from tkinter import END, Button, Entry, Label, Toplevel, ttk
 from tkinter import Menu
 from tkinter import filedialog
 from tkinter import messagebox
@@ -10,7 +10,7 @@ from csv import *
 
 win = tk.Tk()
 win.title("Python Inventory GUI")
-win.geometry("500x500")
+win.geometry("750x500")
 win.config(background="white")
 main_lst=[]
 # Exit Action
@@ -18,6 +18,33 @@ def _quit():
     win.quit()
     win.destroy()
     exit()
+
+class NewWindow(Toplevel):
+    
+    def __init__(self, master = None):
+        
+        super().__init__(master= master)
+        self.title("Test Window")
+        self.geometry("500x500")
+        self.resizable(height=False, width=False)
+        label7 = Label(self, text="Test Window")
+        label7.pack()
+        
+        col_names = ("Initials", "Date", "Computer Name", "Username", "Serial Number", "Stock")
+        
+        for i, col_name in enumerate(col_names, start=1):
+            Label(self, text=col_name).grid(row=3, column=i, padx=40)
+            
+        with open("inventory.csv", "r", newline="") as passfile:
+            reader = csv.reader(passfile)
+            data = list(reader)
+            
+        entrieslist = []
+        for i, row in enumerate(data, start=4):
+            entrieslist.append(row[0])
+            for col in range(1, 8):
+                Label(self, text=row[col]).grid(row=i, column=col)
+                
 
 # Function for opening the file explorer
 def _file():
@@ -31,7 +58,7 @@ def _file():
     
     
 def add():
-    lst=[initials.get(),date.get(),cname.get(),uname.get(),sn.get(),stock.get()]
+    lst=[initials.get(),date.get(),cname.get(),uname.get(),"CND1193"+sn.get(),stock.get()]
     main_lst.append(lst)
     messagebox.showinfo("Information","Saved successfully")
 
@@ -49,6 +76,8 @@ def clear():
     uname.delete(0,END)
     sn.delete(0,END)
     stock.delete(0,END)
+    
+
 
 # Labels
 label1 = Label(win, text="Initals: ",padx=20, pady=10)
@@ -69,7 +98,11 @@ stock = Entry(win,width=30,borderwidth=3)
 # Buttons 
 save = Button(win,text="Save", padx=20, pady=10,command=save)
 add = Button(win,text="Add", padx=20, pady=10,command=add)
-clear = Button(win,text="Clear", padx=20, pady=10,command=clear)
+clear = Button(win,text="Clear", padx=10, pady=10,command=clear)
+OpenWindow = Button(win,text="New Window", padx=10, pady=10)
+
+OpenWindow.bind("<Button>",
+                lambda e: NewWindow(win))
 
 label1.grid(row=0, column=1) 
 label2.grid(row=1, column=1)
@@ -95,6 +128,7 @@ stock.grid(row=5,column=2)
 save.grid(row=7,column=2, columnspan=2, pady=20)
 add.grid(row=6,column=2, columnspan=2, pady=20)
 clear.grid(row=8,column=2, columnspan=2, pady=20)
+OpenWindow.grid(row=6, column=3, padx=50)
 
 save.config(bg="black", fg="white")
 add.config(bg="black", fg="white")
